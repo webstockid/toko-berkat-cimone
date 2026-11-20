@@ -11,7 +11,7 @@
 
 	<!-- 2. PWA & INSTALLABLE META TAGS -->
 	<link rel="manifest" href="manifest.json">
-	<meta name="theme-color" content="#4A7C59">
+	<meta name="theme-color" content="#4F7F62">
 	<meta name="mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -47,21 +47,21 @@
 		   1. DESIGN TOKENS & PALET WARNA KALEM (TERANG, HANGAT & GELAP)
 		   ========================================================================== */
 		:root {
-			--bg-page: #F4F6F4;
-			--bg-surface: #FFFFFF;
-			--bg-elevated: #EDF1EE;
-			--bg-subtle: #E2E8E4;
-			--text-primary: #1F2A24;
-			--text-secondary: #526259;
-			--text-muted: #7B8B82;
-			--border-color: #D7E0DA;
-			--accent-primary: #4A7C59;
-			--accent-hover: #3B6548;
-			--accent-soft: rgba(74, 124, 89, 0.15);
-			--accent-gradient: linear-gradient(135deg, #5C946D 0%, #3F6E4E 100%);
+			--bg-page: #F2F5F2;
+			--bg-surface: #FBFCFA;
+			--bg-elevated: #EBEFEA;
+			--bg-subtle: #E0E6E0;
+			--text-primary: #28332D;
+			--text-secondary: #58665D;
+			--text-muted: #82908A;
+			--border-color: #D8E0D9;
+			--accent-primary: #4F7F62;
+			--accent-hover: #416B52;
+			--accent-soft: rgba(79, 127, 98, 0.13);
+			--accent-gradient: linear-gradient(135deg, #5A8A6D 0%, #477659 100%);
 			--accent-contrast: #FFFFFF;
-			--shadow-soft: 0 10px 28px -8px rgba(31, 42, 36, 0.08);
-			--shadow-modal: 0 24px 48px -12px rgba(20, 30, 24, 0.22);
+			--shadow-soft: 0 8px 24px -10px rgba(40, 51, 45, 0.08);
+			--shadow-modal: 0 22px 44px -14px rgba(30, 40, 34, 0.2);
 			--font-family: 'Plus Jakarta Sans', sans-serif;
 			--font-weight-base: 400;
 			--anim-speed: 0.34s;
@@ -70,31 +70,31 @@
 
 		/* Mode Kalem Gelap (Calm Dark) */
 		html[data-theme="dark"] {
-			--bg-page: #131816;
-			--bg-surface: #1B221F;
-			--bg-elevated: #232C28;
-			--bg-subtle: #2C3732;
-			--text-primary: #E7ECE9;
-			--text-secondary: #A8B5AE;
-			--text-muted: #78877F;
-			--border-color: #2E3A34;
-			--accent-soft: rgba(105, 168, 126, 0.16);
-			--shadow-soft: 0 12px 30px -8px rgba(0, 0, 0, 0.38);
-			--shadow-modal: 0 24px 54px -12px rgba(0, 0, 0, 0.65);
+			--bg-page: #161B19;
+			--bg-surface: #1E2522;
+			--bg-elevated: #26302B;
+			--bg-subtle: #2F3A35;
+			--text-primary: #DDE4DF;
+			--text-secondary: #A0AEA6;
+			--text-muted: #75847C;
+			--border-color: #2F3A35;
+			--accent-soft: rgba(110, 160, 128, 0.14);
+			--shadow-soft: 0 10px 26px -10px rgba(0, 0, 0, 0.32);
+			--shadow-modal: 0 22px 48px -14px rgba(0, 0, 0, 0.55);
 		}
 
 		/* Mode Hangat Kalem (Warm Sand) */
 		html[data-theme="warm"] {
-			--bg-page: #F6F3EE;
-			--bg-surface: #FCFBF8;
-			--bg-elevated: #EFEAE1;
-			--bg-subtle: #E5DED2;
-			--text-primary: #2D2924;
-			--text-secondary: #625B52;
-			--text-muted: #8C8377;
-			--border-color: #DDD5C7;
-			--shadow-soft: 0 10px 28px -8px rgba(45, 41, 36, 0.08);
-			--shadow-modal: 0 24px 48px -12px rgba(45, 41, 36, 0.22);
+			--bg-page: #F4F0E9;
+			--bg-surface: #FBFAF6;
+			--bg-elevated: #EDE7DC;
+			--bg-subtle: #E3DBCE;
+			--text-primary: #36312B;
+			--text-secondary: #675F55;
+			--text-muted: #90877B;
+			--border-color: #DDD4C5;
+			--shadow-soft: 0 8px 24px -10px rgba(54, 49, 43, 0.08);
+			--shadow-modal: 0 22px 44px -14px rgba(54, 49, 43, 0.2);
 		}
 
 		/* Nonaktifkan Animasi jika pengguna mematikan sakelar animasi */
@@ -149,13 +149,13 @@
 		.accent-bg {
 			background: var(--accent-gradient, var(--accent-primary));
 			color: var(--accent-contrast);
-			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34), 0 4px 12px -3px var(--accent-soft);
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 3px 10px -4px var(--accent-soft);
 			transition: filter 0.22s var(--ease-calm), transform 0.18s var(--ease-calm), box-shadow 0.22s var(--ease-calm);
 		}
 
 		.accent-bg:hover {
-			filter: brightness(1.05);
-			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42), 0 6px 16px -3px var(--accent-soft);
+			filter: brightness(1.04);
+			box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 5px 14px -4px var(--accent-soft);
 		}
 
 		.accent-soft-bg {
@@ -418,7 +418,7 @@
 				<div class="flex items-center justify-between gap-3 min-w-0">
 					<a href="#top" id="brand-home-btn" class="flex items-center gap-3 group focus:outline-none min-w-0 flex-1">
 						<div class="w-10 h-10 sm:w-11 sm:h-11 aspect-square rounded-2xl overflow-hidden flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform bg-white shadow-sm">
-							<img src="foto/logo.png" alt="Logo Berkat Elektronik" onerror="this.onerror=null;this.src='https://placehold.co/88x88/4A7C59/FFFFFF?text=BE';" class="w-full h-full object-cover">
+							<img src="foto/logo.png" alt="Logo Berkat Elektronik" onerror="this.onerror=null;this.src='https://placehold.co/88x88/4F7F62/FFFFFF?text=BE';" class="w-full h-full object-cover">
 						</div>
 						<div class="min-w-0">
 							<h1 class="text-base sm:text-xl font-bold tracking-tight theme-text-primary leading-none truncate">
@@ -450,7 +450,7 @@
 							</svg>
 						</button>
 						<button type="button" data-open-modal="profile" title="Profil Pengguna" aria-label="Profil Pengguna" class="w-10 h-10 aspect-square rounded-full border theme-subtle p-0.5 overflow-hidden flex items-center justify-center shrink-0 hover:opacity-90 active:scale-95 transition cursor-pointer">
-							<img id="header-avatar-mobile" src="https://placehold.co/80x80/4A7C59/FFFFFF?text=BE" alt="Avatar" class="w-full h-full rounded-full object-cover aspect-square pointer-events-none">
+							<img id="header-avatar-mobile" src="https://placehold.co/80x80/4F7F62/FFFFFF?text=BE" alt="Avatar" class="w-full h-full rounded-full object-cover aspect-square pointer-events-none">
 						</button>
 					</div>
 				</div>
@@ -525,7 +525,7 @@
 					</button>
 
 					<button type="button" data-open-modal="profile" title="Profil Pengguna" aria-label="Profil Pengguna" class="w-11 h-11 aspect-square rounded-full border theme-subtle p-0.5 overflow-hidden flex items-center justify-center shrink-0 hover:opacity-90 active:scale-95 transition cursor-pointer">
-						<img id="header-avatar-desktop" src="https://placehold.co/80x80/4A7C59/FFFFFF?text=BE" alt="Profil" class="w-full h-full rounded-full object-cover aspect-square pointer-events-none">
+						<img id="header-avatar-desktop" src="https://placehold.co/80x80/4F7F62/FFFFFF?text=BE" alt="Profil" class="w-full h-full rounded-full object-cover aspect-square pointer-events-none">
 					</button>
 				</div>
 			</div>
@@ -1474,7 +1474,7 @@
 
 		function getPaymentIconSvg(providerId, sizeClass = 'w-6 h-6') {
 			const item = PAYMENT_PROVIDERS.find(p => p.id === providerId) || {
-				bg: '#4A7C59',
+				bg: '#4F7F62',
 				fg: '#FFFFFF',
 				code: 'PAY'
 			};
@@ -1936,7 +1936,7 @@
 					image: String(raw.image || `foto/${raw.id}.jpg`),
 					description: String(raw.description || ''),
 					specs: Array.isArray(raw.specs) ? raw.specs : [],
-					fallbackImage: raw.fallbackImage || `https://placehold.co/800x550/EBF0EC/4A7C59?text=${encodeURIComponent(categoryLabel)}`
+					fallbackImage: raw.fallbackImage || `https://placehold.co/800x550/EBF0EC/4F7F62?text=${encodeURIComponent(categoryLabel)}`
 				};
 			},
 
@@ -2378,7 +2378,7 @@
 						vibrate: true
 					},
 					profile: {
-						avatar: 'https://placehold.co/160x160/4A7C59/FFFFFF?text=BE',
+						avatar: 'https://placehold.co/160x160/4F7F62/FFFFFF?text=BE',
 						fullName: '',
 						region: 'Tangerang Kota',
 						district: 'Karawaci (Cimone Jaya)',
@@ -2448,6 +2448,30 @@
 				const val = Number(num || 0);
 				if (val <= 0) return 'Hubungi Toko (Rp 0)';
 				return 'Rp ' + val.toLocaleString('id-ID');
+			},
+
+			/* Avatar inisial dibuat dari nama terbaru, kecuali pengguna mengunggah foto sendiri */
+			getInitials(fullName) {
+				const initials = String(fullName || '')
+					.trim()
+					.split(/\s+/)
+					.filter(Boolean)
+					.slice(0, 2)
+					.map(word => word[0].toUpperCase())
+					.join('');
+				return initials || 'BE';
+			},
+
+			buildInitialsAvatar(fullName) {
+				return `https://placehold.co/160x160/4F7F62/FFFFFF?text=${encodeURIComponent(this.getInitials(fullName))}`;
+			},
+
+			isCustomAvatar(url) {
+				return Boolean(url) && !String(url).startsWith('https://placehold.co/');
+			},
+
+			resolveAvatar(currentAvatar, fullName) {
+				return this.isCustomAvatar(currentAvatar) ? currentAvatar : this.buildInitialsAvatar(fullName);
 			},
 
 			getProductById(id) {
@@ -2818,15 +2842,9 @@
 						return;
 					}
 
-					const initials = fullName
-						.split(/\s+/)
-						.slice(0, 2)
-						.map(w => w[0]?.toUpperCase() || '')
-						.join('') || 'BE';
-
 					AppState.data.profile = {
 						...AppState.data.profile,
-						avatar: `https://placehold.co/160x160/4A7C59/FFFFFF?text=${encodeURIComponent(initials)}`,
+						avatar: AppState.resolveAvatar(AppState.data.profile.avatar, fullName),
 						fullName,
 						phone,
 						region: this.selectedRegion,
@@ -2879,7 +2897,7 @@
 				const { lat: oLat, lng: oLng } = STORE_CONFIG.originCoords;
 				const near = this.findNearestLocation(lat, lng);
 				const distanceKm = Math.round(Math.max(1.2, this.haversineKm(oLat, oLng, lat, lng) * STORE_CONFIG.roadDistanceMultiplier) * 10) / 10;
-				const base = { distanceKm, cost: 0, brackets: 0, region: near.region, district: near.name };
+				const base = { distanceKm, cost: 0, brackets: 0, region: near.region, district: near.name, nearKm: near.km };
 
 				if (near.km > 15) {
 					return { ...base, eligible: false, reason: 'Titik lokasi berada di luar wilayah layanan Tangerang Kota dan Tangerang Kabupaten.' };
@@ -2984,52 +3002,52 @@
 			accents: {
 				merah: {
 					label: 'Merah',
-					primary: '#B8545A',
-					hover: '#9D4349',
-					soft: 'rgba(184, 84, 90, 0.16)',
-					gradient: 'linear-gradient(135deg, #CA686E 0%, #A9484E 100%)'
+					primary: '#A9585D',
+					hover: '#904950',
+					soft: 'rgba(169, 88, 93, 0.13)',
+					gradient: 'linear-gradient(135deg, #B3636A 0%, #9F5156 100%)'
 				},
 				kuning: {
 					label: 'Kuning',
-					primary: '#B88A2E',
-					hover: '#9B7222',
-					soft: 'rgba(184, 138, 46, 0.17)',
-					gradient: 'linear-gradient(135deg, #CFA03F 0%, #A97C24 100%)'
+					primary: '#94702C',
+					hover: '#7D5E24',
+					soft: 'rgba(148, 112, 44, 0.13)',
+					gradient: 'linear-gradient(135deg, #9F7A33 0%, #876528 100%)'
 				},
 				hijau: {
 					label: 'Hijau',
-					primary: '#4A7C59',
-					hover: '#3B6548',
-					soft: 'rgba(74, 124, 89, 0.16)',
-					gradient: 'linear-gradient(135deg, #5C946D 0%, #3F6E4E 100%)'
+					primary: '#4F7F62',
+					hover: '#416B52',
+					soft: 'rgba(79, 127, 98, 0.13)',
+					gradient: 'linear-gradient(135deg, #5A8A6D 0%, #477659 100%)'
 				},
 				biru: {
 					label: 'Biru',
-					primary: '#437299',
-					hover: '#345B7C',
-					soft: 'rgba(67, 114, 153, 0.16)',
-					gradient: 'linear-gradient(135deg, #5687B0 0%, #3A668B 100%)'
+					primary: '#4B7291',
+					hover: '#3C5D78',
+					soft: 'rgba(75, 114, 145, 0.13)',
+					gradient: 'linear-gradient(135deg, #5780A0 0%, #42667F 100%)'
 				},
 				oren: {
 					label: 'Oren',
-					primary: '#C46D3B',
-					hover: '#A7582B',
-					soft: 'rgba(196, 109, 59, 0.16)',
-					gradient: 'linear-gradient(135deg, #D8814E 0%, #B56030 100%)'
+					primary: '#A8623D',
+					hover: '#8F5232',
+					soft: 'rgba(168, 98, 61, 0.13)',
+					gradient: 'linear-gradient(135deg, #B36D48 0%, #9C5835 100%)'
 				},
 				ungu: {
 					label: 'Ungu',
-					primary: '#745B96',
-					hover: '#5E487B',
-					soft: 'rgba(116, 91, 150, 0.16)',
-					gradient: 'linear-gradient(135deg, #886EAB 0%, #685089 100%)'
+					primary: '#6E6091',
+					hover: '#5A4E78',
+					soft: 'rgba(110, 96, 145, 0.13)',
+					gradient: 'linear-gradient(135deg, #7A6C9C 0%, #625485 100%)'
 				},
 				abu: {
 					label: 'Abu',
-					primary: '#59656F',
-					hover: '#454F58',
-					soft: 'rgba(89, 101, 111, 0.16)',
-					gradient: 'linear-gradient(135deg, #6D7A85 0%, #4E5962 100%)'
+					primary: '#5C6770',
+					hover: '#48525A',
+					soft: 'rgba(92, 103, 112, 0.13)',
+					gradient: 'linear-gradient(135deg, #69747D 0%, #525D66 100%)'
 				}
 			},
 
@@ -3047,6 +3065,7 @@
 				root.style.setProperty('--accent-hover', acc.hover);
 				root.style.setProperty('--accent-soft', acc.soft);
 				root.style.setProperty('--accent-gradient', acc.gradient);
+				document.querySelector('meta[name="theme-color"]')?.setAttribute('content', acc.primary);
 
 				root.classList.toggle('no-animations', !s.animations);
 				this.syncModalControls();
@@ -3200,7 +3219,7 @@
 						<img
 							src="${slide.image}"
 							alt="${slide.title}"
-							onerror="this.onerror=null;this.src='https://placehold.co/1600x500/3B6548/FFFFFF?text=Berkat+Elektronik+Tangerang';"
+							onerror="this.onerror=null;this.src='https://placehold.co/1600x500/416B52/FFFFFF?text=Berkat+Elektronik+Tangerang';"
 							class="w-full h-full object-cover"
 						>
 						<div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent flex items-end p-5 sm:p-8 md:p-10">
@@ -3534,7 +3553,7 @@
 					const isLiked = AppState.data.likes.includes(product.id);
 					const isOutOfStock = Number(product.stock || 0) <= 0;
 					const staggerDelay = Math.min(index * 22, 320);
-					const fallbackUrl = product.fallbackImage || `https://placehold.co/800x550/EBF0EC/4A7C59?text=${encodeURIComponent(product.category)}`;
+					const fallbackUrl = product.fallbackImage || `https://placehold.co/800x550/EBF0EC/4F7F62?text=${encodeURIComponent(product.category)}`;
 					const showTopBadge = !isFiltered && AppState.currentPage === 1 && product._isTop50 && product._rank <= 10;
 
 					return `
@@ -3546,7 +3565,7 @@
 										src="${product.image}"
 										alt="${product.name}"
 										loading="lazy"
-										onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/800x550/EBF0EC/4A7C59?text=${encodeURIComponent(product.category)}';}"
+										onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/800x550/EBF0EC/4F7F62?text=${encodeURIComponent(product.category)}';}"
 										class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${isOutOfStock ? 'opacity-65 grayscale-[30%]' : ''}"
 									>
 									<div class="absolute top-3 left-3 flex flex-wrap items-center gap-1.5 pr-12">
@@ -3767,7 +3786,7 @@
 
 				const isLiked = AppState.data.likes.includes(product.id);
 				const isOutOfStock = Number(product.stock || 0) <= 0;
-				const fallbackUrl = product.fallbackImage || `https://placehold.co/800x600/EBF0EC/4A7C59?text=${encodeURIComponent(product.category)}`;
+				const fallbackUrl = product.fallbackImage || `https://placehold.co/800x600/EBF0EC/4F7F62?text=${encodeURIComponent(product.category)}`;
 
 				container.innerHTML = `
 					<div class="grid grid-cols-1 md:grid-cols-2">
@@ -3775,7 +3794,7 @@
 							<img
 								src="${product.image}"
 								alt="${product.name}"
-								onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/800x600/EBF0EC/4A7C59?text=${encodeURIComponent(product.category)}';}"
+								onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/800x600/EBF0EC/4F7F62?text=${encodeURIComponent(product.category)}';}"
 								class="w-full h-full object-cover ${isOutOfStock ? 'opacity-70 grayscale-[25%]' : ''}"
 							>
 							<button type="button" id="detail-close-mobile" class="md:hidden absolute top-3 right-3 w-9 h-9 aspect-square rounded-full bg-black/55 text-white flex items-center justify-center shrink-0">✕</button>
@@ -3922,13 +3941,13 @@
 					const lineTotal = product.price * qty;
 					subtotal += lineTotal;
 					const reachedMaxStock = qty >= product.stock;
-					const fallbackUrl = product.fallbackImage || `https://placehold.co/128x128/EBF0EC/4A7C59?text=${encodeURIComponent(product.category || 'Audio')}`;
+					const fallbackUrl = product.fallbackImage || `https://placehold.co/128x128/EBF0EC/4F7F62?text=${encodeURIComponent(product.category || 'Audio')}`;
 					return `
 						<div class="p-3.5 rounded-2xl border theme-elevated flex items-center gap-3.5">
 							<img
 								src="${product.image}"
 								alt="${product.name}"
-								onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/128x128/EBF0EC/4A7C59?text=Audio';}"
+								onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/128x128/EBF0EC/4F7F62?text=Audio';}"
 								class="w-16 h-16 aspect-square rounded-xl object-cover shrink-0 border theme-border bg-white/60"
 							>
 							<div class="flex-1 min-w-0">
@@ -3988,6 +4007,12 @@
 				if (ordersCountEl) ordersCountEl.textContent = AppState.data.orderHistory.length;
 
 				const prof = AppState.data.profile;
+				/* Perbaiki avatar inisial lama yang masih memakai nama sebelumnya */
+				const resolvedAvatar = AppState.resolveAvatar(prof.avatar, prof.fullName);
+				if (resolvedAvatar !== prof.avatar) {
+					prof.avatar = resolvedAvatar;
+					AppState.save();
+				}
 				const avDesktop = document.getElementById('header-avatar-desktop');
 				const avMobile = document.getElementById('header-avatar-mobile');
 				if (avDesktop && prof.avatar) avDesktop.src = prof.avatar;
@@ -4168,6 +4193,14 @@
 					reader.readAsDataURL(file);
 				});
 
+				/* Pratinjau inisial ikut berubah saat nama diketik (jika belum memakai foto sendiri) */
+				document.getElementById('prof-input-name')?.addEventListener('input', (e) => {
+					const previewEl = document.getElementById('profile-avatar-preview');
+					if (previewEl && !AppState.isCustomAvatar(avatarData)) {
+						previewEl.src = AppState.buildInitialsAvatar(e.target.value);
+					}
+				});
+
 				document.getElementById('profile-biodata-form')?.addEventListener('submit', (e) => {
 					e.preventDefault();
 					const nameVal = document.getElementById('prof-input-name').value.trim();
@@ -4178,7 +4211,7 @@
 						return;
 					}
 					AppState.data.profile = {
-						avatar: avatarData,
+						avatar: AppState.resolveAvatar(avatarData, nameVal),
 						fullName: nameVal,
 						phone: phoneVal,
 						region: selectedRegion,
@@ -4190,6 +4223,9 @@
 					AppState.save();
 					this.updateBadges();
 					SoundHaptic.feedback('success');
+					avatarData = AppState.data.profile.avatar;
+					const previewEl = document.getElementById('profile-avatar-preview');
+					if (previewEl) previewEl.src = avatarData;
 					Toast.show('Data profil berhasil diperbarui!', 'success');
 				});
 			},
@@ -4215,13 +4251,13 @@
 						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 							${likedProducts.map(prod => {
 								const isOutOfStock = Number(prod.stock || 0) <= 0;
-								const fallbackUrl = prod.fallbackImage || `https://placehold.co/128x128/EBF0EC/4A7C59?text=${encodeURIComponent(prod.category || 'Audio')}`;
+								const fallbackUrl = prod.fallbackImage || `https://placehold.co/128x128/EBF0EC/4F7F62?text=${encodeURIComponent(prod.category || 'Audio')}`;
 								return `
 									<div class="p-3 rounded-2xl border theme-elevated flex items-center gap-3">
 										<img
 											src="${prod.image}"
 											alt="${prod.name}"
-											onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/128x128/EBF0EC/4A7C59?text=Audio';}"
+											onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/128x128/EBF0EC/4F7F62?text=Audio';}"
 											class="w-14 h-14 aspect-square rounded-xl object-cover shrink-0 border theme-border bg-white/60 ${isOutOfStock ? 'opacity-65 grayscale-[25%]' : ''}"
 										>
 										<div class="flex-1 min-w-0">
@@ -4309,14 +4345,14 @@
 								<div class="space-y-2">
 									${ord.items.map(it => {
 										const liveProd = AppState.getProductById(it.productId);
-										const thumbUrl = it.image || (liveProd ? liveProd.image : 'https://placehold.co/128x128/EBF0EC/4A7C59?text=Audio');
-										const fallbackUrl = (liveProd && liveProd.fallbackImage) ? liveProd.fallbackImage : 'https://placehold.co/128x128/EBF0EC/4A7C59?text=Audio';
+										const thumbUrl = it.image || (liveProd ? liveProd.image : 'https://placehold.co/128x128/EBF0EC/4F7F62?text=Audio');
+										const fallbackUrl = (liveProd && liveProd.fallbackImage) ? liveProd.fallbackImage : 'https://placehold.co/128x128/EBF0EC/4F7F62?text=Audio';
 										return `
 											<div class="flex items-center gap-3 p-2.5 rounded-xl border theme-surface">
 												<img
 													src="${thumbUrl}"
 													alt="${it.name}"
-													onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/128x128/EBF0EC/4A7C59?text=Audio';}"
+													onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/128x128/EBF0EC/4F7F62?text=Audio';}"
 													class="w-14 h-14 aspect-square rounded-xl object-cover border theme-border bg-white/60 shrink-0"
 												>
 												<div class="flex-1 min-w-0 text-xs">
@@ -4482,14 +4518,14 @@
 				container.innerHTML = `
 					<div class="space-y-3">
 						${items.map(({ product, qty }) => {
-							const fallbackUrl = product.fallbackImage || `https://placehold.co/128x128/EBF0EC/4A7C59?text=${encodeURIComponent(product.category || 'Audio')}`;
+							const fallbackUrl = product.fallbackImage || `https://placehold.co/128x128/EBF0EC/4F7F62?text=${encodeURIComponent(product.category || 'Audio')}`;
 							return `
 								<div class="p-3 rounded-2xl border theme-elevated flex items-center justify-between gap-3">
 									<div class="flex items-center gap-3 min-w-0 flex-1">
 										<img
 											src="${product.image}"
 											alt="${product.name}"
-											onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/128x128/EBF0EC/4A7C59?text=Audio';}"
+											onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/128x128/EBF0EC/4F7F62?text=Audio';}"
 											class="w-14 h-14 aspect-square rounded-xl object-cover border theme-border bg-white/60 shrink-0"
 										>
 										<div class="min-w-0 flex-1">
@@ -4661,6 +4697,7 @@
 						{ value: 'Tangerang Kabupaten', label: 'Tangerang Kabupaten' }
 					],
 					onChange: (val) => {
+						GeoLocator.clearForManualSelection();
 						this.selectedRegion = val;
 						const list = TANGERANG_LOCATIONS[val] || [];
 						this.selectedDistrict = list[0]?.name || '';
@@ -4678,6 +4715,7 @@
 					value: this.selectedDistrict,
 					options: districts.map(d => ({ value: d.name, label: d.name })),
 					onChange: (val) => {
+						GeoLocator.clearForManualSelection();
 						this.selectedDistrict = val;
 						this.renderSummary();
 					}
@@ -4779,14 +4817,14 @@
 						summaryContainer.innerHTML = items.map(({ product, qty }) => {
 							const line = product.price * qty;
 							subtotal += line;
-							const fallbackUrl = product.fallbackImage || `https://placehold.co/128x128/EBF0EC/4A7C59?text=${encodeURIComponent(product.category || 'Audio')}`;
+							const fallbackUrl = product.fallbackImage || `https://placehold.co/128x128/EBF0EC/4F7F62?text=${encodeURIComponent(product.category || 'Audio')}`;
 							return `
 								<div class="flex items-center justify-between gap-2.5 text-xs p-2.5 rounded-xl theme-surface border">
 									<div class="flex items-center gap-2.5 min-w-0 flex-1">
 										<img
 											src="${product.image}"
 											alt="${product.name}"
-											onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/128x128/EBF0EC/4A7C59?text=Audio';}"
+											onerror="if(this.dataset.fallbackTried!=='1'){this.dataset.fallbackTried='1';this.src='${fallbackUrl}';}else{this.onerror=null;this.src='https://placehold.co/128x128/EBF0EC/4F7F62?text=Audio';}"
 											class="w-14 h-14 aspect-square rounded-xl object-cover border theme-border bg-white/60 shrink-0"
 										>
 										<div class="min-w-0 flex-1">
@@ -5479,7 +5517,7 @@
 
 		/* 15d. Lokasi akurat untuk ongkir: GPS perangkat atau link Google Maps */
 		const GeoLocator = {
-			defaultStatus: 'Tanpa lokasi akurat, ongkir dihitung dari titik tengah kecamatan yang dipilih.',
+			defaultStatus: 'Opsional. Jika dipakai, Kota/Kabupaten dan Kecamatan terisi otomatis. Memilih kecamatan secara manual akan mengosongkan lokasi akurat.',
 
 			getMapsUrl() {
 				const loc = CheckoutController.customLocation;
@@ -5516,14 +5554,38 @@
 			apply(lat, lng, sourceLabel) {
 				CheckoutController.customLocation = { lat, lng, source: sourceLabel };
 				const result = CheckoutController.getShippingEvaluation();
+				const synced = this.syncDropdowns(result);
 				if (result.eligible) {
-					this.setStatus(`<i class="fa-solid fa-circle-check mr-1"></i>Lokasi dari ${sourceLabel} dipakai: ±${result.distanceKm} KM, dekat ${result.district}.`, 'ok');
+					this.setStatus(`<i class="fa-solid fa-circle-check mr-1"></i>Lokasi dari ${sourceLabel} dipakai: ±${result.distanceKm} KM, dekat ${result.district}.${synced ? ' Kota/Kabupaten dan Kecamatan terisi otomatis.' : ''}`, 'ok');
 				} else {
 					this.setStatus(`<i class="fa-solid fa-circle-xmark mr-1"></i>${result.reason}`, 'bad');
 				}
 				document.getElementById('geo-clear-btn')?.classList.remove('hidden');
 				CheckoutController.renderSummary();
 				SoundHaptic.feedback(result.eligible ? 'success' : 'warning');
+			},
+
+			/* Isi dropdown Kota/Kabupaten & Kecamatan sesuai kecamatan terdekat dari titik lokasi */
+			syncDropdowns(result) {
+				if (result.nearKm === undefined || result.nearKm > 15) return false;
+				const list = TANGERANG_LOCATIONS[result.region] || [];
+				if (!list.some(item => item.name === result.district)) return false;
+
+				CheckoutController.selectedRegion = result.region;
+				CheckoutController.selectedDistrict = result.district;
+				CheckoutController.regionDropdown?.setValue(result.region, false);
+				CheckoutController.districtDropdown?.setOptions(
+					list.map(item => ({ value: item.name, label: item.name })),
+					result.district
+				);
+				return true;
+			},
+
+			/* Pengguna memilih Kota/Kecamatan lewat dropdown: kosongkan lokasi akurat */
+			clearForManualSelection() {
+				if (!CheckoutController.customLocation) return;
+				this.reset();
+				Toast.show('Lokasi akurat dikosongkan. Ongkir memakai Kota/Kabupaten dan Kecamatan pilihan.', 'info', 3800);
 			},
 
 			applyLink() {
@@ -5629,7 +5691,7 @@
 			},
 
 			cardHtml(p) {
-				const fallback = p.fallbackImage || `https://placehold.co/400x300/EBF0EC/4A7C59?text=${encodeURIComponent(p.category)}`;
+				const fallback = p.fallbackImage || `https://placehold.co/400x300/EBF0EC/4F7F62?text=${encodeURIComponent(p.category)}`;
 				return `
 					<button type="button" data-reco-id="${p.id}" class="w-36 shrink-0 text-left rounded-2xl border theme-elevated overflow-hidden hover:opacity-90 active:scale-95 transition cursor-pointer">
 						<img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.onerror=null;this.src='${fallback}'" class="w-full h-24 object-cover">
