@@ -29,9 +29,14 @@ const KONTROL_TOKO = {
 	tokoFisik: {
 		buka: '09:00',
 		tutup: '17:00',
-		hariLibur: [],
+		hariLibur: ['sabtu'],
 		tanggalLibur: []
 	},
+	
+	/*
+	hariLibur: ['jumat']              // libur setiap Jumat
+	hariLibur: ['kamis', 'sabtu']     // libur setiap Kamis dan Sabtu
+	*/
 
 	/* ----------------------------------------------------------------------
 	   2. LAYANAN ONLINE & PENGIRIMAN
@@ -41,7 +46,7 @@ const KONTROL_TOKO = {
 	layananOnline: {
 		buka: '10:00',
 		tutup: '15:00',
-		hariLibur: [],
+		hariLibur: ['sabtu'],
 		tanggalLibur: []
 	},
 
