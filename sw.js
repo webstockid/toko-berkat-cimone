@@ -2,8 +2,8 @@
    - Katalog & halaman: network-first (selalu coba data terbaru, cadangan dari cache saat offline)
    - Gambar, CSS, font, CDN: stale-while-revalidate (cepat, diperbarui di latar belakang)
    Naikkan CACHE_VERSION setiap kali ada perubahan besar agar cache lama dibersihkan. */
-const CACHE_VERSION = 'berkat-elektronik-v1';
-const APP_SHELL = ['./', 'index.html', 'manifest.json'];
+const CACHE_VERSION = 'berkat-elektronik-v2';
+const APP_SHELL = ['./', 'index.html', 'kontrol.js', 'manifest.json'];
 
 self.addEventListener('install', (event) => {
 	event.waitUntil(
@@ -30,7 +30,8 @@ self.addEventListener('fetch', (event) => {
 	const url = new URL(req.url);
 	if (url.hostname.endsWith('open-meteo.com') || url.hostname === 'wa.me') return;
 
-	const isDocOrData = req.mode === 'navigate' || url.pathname.endsWith('.json') || url.pathname.endsWith('.html');
+	/* kontrol.js ikut network-first agar perubahan jam buka, rekening, dan biaya langsung terbaca */
+	const isDocOrData = req.mode === 'navigate' || url.pathname.endsWith('.json') || url.pathname.endsWith('.html') || url.pathname.endsWith('kontrol.js');
 
 	if (isDocOrData) {
 		event.respondWith(

@@ -741,7 +741,7 @@
 								<span class="font-semibold theme-text-primary">Toko Fisik (Offline)</span>
 								<span id="footer-store-badge" class="px-2 py-0.5 rounded-full text-[10px] font-semibold accent-soft-bg">Senin–Sabtu</span>
 							</div>
-							<p class="theme-text-secondary">Senin – Sabtu: <strong>09.00 – 17.00 WIB</strong></p>
+							<p id="footer-store-hours" class="theme-text-secondary">Senin – Sabtu: <strong>09.00 – 17.00 WIB</strong></p>
 							<p class="theme-text-muted text-[11px]">Hari Minggu &amp; Libur Nasional Tutup</p>
 						</div>
 
@@ -750,7 +750,7 @@
 								<span class="font-semibold theme-text-primary">Layanan Online &amp; Pengiriman</span>
 								<span id="footer-online-badge" class="px-2 py-0.5 rounded-full text-[10px] font-semibold accent-soft-bg">Senin–Sabtu</span>
 							</div>
-							<p class="theme-text-secondary">Senin – Sabtu: <strong>10.00 – 15.00 WIB</strong></p>
+							<p id="footer-online-hours" class="theme-text-secondary">Senin – Sabtu: <strong>10.00 – 15.00 WIB</strong></p>
 							<p class="theme-text-muted text-[11px]">Order di luar jam online diproses pada hari kerja berikutnya</p>
 						</div>
 					</div>
@@ -766,7 +766,7 @@
 						</li>
 						<li class="flex items-start gap-2.5">
 							<span class="w-5 h-5 rounded-full accent-bg text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
-							<span><strong class="theme-text-primary">Hitung Ongkir Otomatis:</strong> Berlaku khusus Tangerang Kota &amp; Kab. Tangerang radius <strong>0–30 KM</strong> dari Cimone Jaya + layanan Rp 15.000.</span>
+							<span><strong class="theme-text-primary">Hitung Ongkir Otomatis:</strong> Berlaku khusus Tangerang Kota &amp; Kab. Tangerang radius <strong id="info-radius-km">0–30 KM</strong> dari Cimone Jaya + layanan <span id="info-service-fee">Rp 15.000</span>.</span>
 						</li>
 						<li class="flex items-start gap-2.5">
 							<span class="w-5 h-5 rounded-full accent-bg text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
@@ -1021,7 +1021,7 @@
 			<div class="px-6 py-4 border-b theme-border flex flex-wrap items-center justify-between gap-3">
 				<div class="min-w-0 flex-1">
 					<h2 class="text-base sm:text-lg font-bold theme-text-primary">Formulir Pembayaran &amp; Pengiriman</h2>
-					<p class="text-xs theme-text-secondary truncate">Asal: <strong class="theme-text-primary">Jl. Raya Merdeka No.35, Cimone Jaya, Karawaci, Tangerang</strong> (Radius 0–30 KM)</p>
+					<p class="text-xs theme-text-secondary truncate">Asal: <strong class="theme-text-primary">Jl. Raya Merdeka No.35, Cimone Jaya, Karawaci, Tangerang</strong> (Radius 0–<span id="origin-radius-km">30</span> KM)</p>
 				</div>
 				<div class="flex items-center gap-2 shrink-0">
 					<button type="button" id="sync-profile-to-checkout-btn" class="px-3 py-1.5 rounded-xl accent-soft-bg text-xs font-medium hover:opacity-85 transition">
@@ -1365,6 +1365,9 @@
 	<!-- ==========================================================================
 	     JAVASCRIPT MODULAR (TOP 50 RANKING, PAGINATION 50, ONBOARDING & CONFIRM)
 	     ========================================================================== -->
+	<!-- Pusat pengaturan toko: jam buka, rekening, biaya & ongkir (edit di kontrol.js) -->
+	<script src="kontrol.js"></script>
+
 	<script>
 		'use strict';
 
@@ -1408,6 +1411,38 @@
 				{ id: 'Bank Jago', name: 'Bank Jago', holder: 'Berkat Elektronik', accountNumber: '12345678' }
 			]
 		};
+
+		/* ==========================================================================
+		   KONTROL TOKO: nilai dari kontrol.js menggantikan pengaturan bawaan di atas
+		   (jam buka/tutup dibaca langsung oleh StoreAvailability lewat KONTROL)
+		   ========================================================================== */
+		const KONTROL = window.KontrolToko || null;
+
+		if (KONTROL) {
+			const kontrol = KONTROL.ambil();
+			const { kota, kabupaten } = kontrol.biaya.ongkir;
+			const toRule = (tarif) => ({
+				baseKm: tarif.kmDasar,
+				baseCost: tarif.biayaDasar,
+				nextStepKm: tarif.kelipatanKm,
+				nextStepCost: tarif.biayaPerKelipatan
+			});
+
+			STORE_CONFIG.serviceFee = kontrol.biaya.biayaLayanan;
+			STORE_CONFIG.maxRadiusKm = kontrol.biaya.radiusMaksKm;
+			STORE_CONFIG.shippingRules = {
+				'Tangerang Kota': toRule(kota),
+				'Tangerang Kabupaten': toRule(kabupaten)
+			};
+			STORE_CONFIG.officialDestinations = kontrol.rekening.map(item => ({
+				id: item.id,
+				name: item.nama,
+				holder: item.atasNama,
+				accountNumber: item.nomor
+			}));
+		} else {
+			console.error('[Berkat Elektronik] kontrol.js tidak termuat. Memakai pengaturan bawaan di STORE_CONFIG.');
+		}
 
 		/* Data Kecamatan Tangerang Kota & Tangerang Kabupaten beserta koordinat untuk kalkulasi jarak dari Cimone Jaya */
 		const TANGERANG_LOCATIONS = {
@@ -1490,7 +1525,65 @@
 
 		/* Modul Status Ketersediaan Jam Operasional Real-Time (WIB / Asia/Jakarta) */
 		const StoreAvailability = {
+			staticRendered: false,
+
+			/* Status buka/tutup dari kontrol.js (toko fisik & layanan online, termasuk hari libur) */
+			getStatusFromKontrol() {
+				const storeOpen = KONTROL.statusBuka('tokoFisik');
+				const onlineOpen = KONTROL.statusBuka('layananOnline');
+				const storeHours = KONTROL.labelJam('tokoFisik');
+				const onlineHours = KONTROL.labelJam('layananOnline');
+
+				const storeClosed = KONTROL.sedangLibur('tokoFisik')
+					? 'Toko Libur Hari Ini'
+					: `Toko Tutup (${KONTROL.labelHari('tokoFisik', true)} ${storeHours})`;
+				const onlineClosed = KONTROL.sedangLibur('layananOnline')
+					? 'Online Libur Hari Ini'
+					: `Offline (${KONTROL.labelHari('layananOnline', true)} ${onlineHours})`;
+
+				return {
+					storeOpen,
+					onlineOpen,
+					storeLabel: storeOpen ? `Toko Buka (${storeHours})` : storeClosed,
+					onlineLabel: onlineOpen ? `Online (${onlineHours})` : onlineClosed
+				};
+			},
+
+			/* Teks hari & jam untuk ditampilkan di berbagai bagian halaman */
+			getHoursText() {
+				if (!KONTROL) {
+					return { storeDays: 'Senin–Sabtu', storeHours: '09.00–17.00', storeOff: 'Minggu', onlineDays: 'Senin–Sabtu', onlineHours: '10.00–15.00', onlineOff: 'Minggu' };
+				}
+				return {
+					storeDays: KONTROL.labelHari('tokoFisik'),
+					storeHours: KONTROL.labelJam('tokoFisik'),
+					storeOff: KONTROL.labelLibur('tokoFisik'),
+					onlineDays: KONTROL.labelHari('layananOnline'),
+					onlineHours: KONTROL.labelJam('layananOnline'),
+					onlineOff: KONTROL.labelLibur('layananOnline')
+				};
+			},
+
+			/* Isi teks statis yang bergantung pada kontrol.js (jam di footer, radius, biaya layanan) */
+			renderStaticInfo() {
+				const hours = this.getHoursText();
+				const spaced = (text) => text.replace(/–/g, ' – ');
+				const setHtml = (id, html) => {
+					const el = document.getElementById(id);
+					if (el) el.innerHTML = html;
+				};
+				const offNote = (text) => `<span class="block text-[11px] theme-text-muted">Libur: ${text}</span>`;
+
+				setHtml('footer-store-hours', `${spaced(hours.storeDays)}: <strong>${spaced(hours.storeHours)} WIB</strong>${offNote(hours.storeOff)}`);
+				setHtml('footer-online-hours', `${spaced(hours.onlineDays)}: <strong>${spaced(hours.onlineHours)} WIB</strong>${offNote(hours.onlineOff)}`);
+				setHtml('info-radius-km', `0–${STORE_CONFIG.maxRadiusKm} KM`);
+				setHtml('origin-radius-km', String(STORE_CONFIG.maxRadiusKm));
+				setHtml('info-service-fee', `Rp ${STORE_CONFIG.serviceFee.toLocaleString('id-ID')}`);
+			},
+
 			getStatus() {
+				if (KONTROL) return this.getStatusFromKontrol();
+
 				const now = new Date();
 				const wibString = now.toLocaleString('en-US', { timeZone: 'Asia/Jakarta' });
 				const wibDate = new Date(wibString);
@@ -1514,6 +1607,8 @@
 			/* Awal jam operasional online berikutnya (timestamp ms, WIB = UTC+7 tanpa DST).
 			   Jika layanan sedang aktif, kembalikan waktu saat ini. */
 			getNextOnlineStart(fromMs = Date.now()) {
+				if (KONTROL) return KONTROL.awalBukaBerikutnya('layananOnline', fromMs);
+
 				const WIB_OFFSET_MS = 7 * 3600000;
 				const wib = new Date(fromMs + WIB_OFFSET_MS);
 				const day = wib.getUTCDay();
@@ -1530,7 +1625,13 @@
 
 			renderAllIndicators() {
 				const status = this.getStatus();
+				const hours = this.getHoursText();
 				const weather = WeatherService.currentWeather;
+
+				if (!this.staticRendered) {
+					this.renderStaticInfo();
+					this.staticRendered = true;
+				}
 
 				/* Baris 2 Header: Informasi Toko Buka & Tutup */
 				const headerBar = document.getElementById('header-availability-bar');
@@ -1565,11 +1666,11 @@
 							<span class="w-2 h-2 rounded-full ${status.onlineOpen ? 'bg-emerald-500' : 'bg-amber-500'} shrink-0"></span>
 							<span class="theme-text-primary font-medium">
 								${status.onlineOpen
-									? 'Layanan Online & Pengiriman sedang AKTIF (Senin–Sabtu 10.00–15.00 WIB). Pesanan langsung diproses.'
-									: `Di luar jam layanan online (Senin–Sabtu 10.00–15.00 WIB). Pesanan tetap bisa dibuat dengan status Pending, pengiriman dijadwalkan ${OrderTracker.formatDateTime(this.getNextOnlineStart())} WIB.`}
+									? `Layanan Online & Pengiriman sedang AKTIF (${hours.onlineDays} ${hours.onlineHours} WIB). Pesanan langsung diproses.`
+									: `Di luar jam layanan online (${hours.onlineDays} ${hours.onlineHours} WIB). Pesanan tetap bisa dibuat dengan status Pending, pengiriman dijadwalkan ${OrderTracker.formatDateTime(this.getNextOnlineStart())} WIB.`}
 							</span>
 						</div>
-						<span class="text-[11px] font-semibold accent-text shrink-0">Toko Fisik: 09.00–17.00 WIB</span>
+						<span class="text-[11px] font-semibold accent-text shrink-0">Toko Fisik: ${hours.storeHours} WIB</span>
 					`;
 				}
 
@@ -2967,7 +3068,7 @@
 						distanceKm,
 						cost: 0,
 						brackets: 0,
-						reason: `Jarak ke ${found.name} sekitar ${distanceKm} KM. Melebihi batas maksimal radius pengiriman 0–30 KM dari Jl. Raya Merdeka No.35, Cimone Jaya, Karawaci.`
+						reason: `Jarak ke ${found.name} sekitar ${distanceKm} KM. Melebihi batas maksimal radius pengiriman 0–${STORE_CONFIG.maxRadiusKm} KM dari Jl. Raya Merdeka No.35, Cimone Jaya, Karawaci.`
 					};
 				}
 
@@ -4879,7 +4980,7 @@
 							: '';
 
 						statusBox.innerHTML = `
-							<p class="font-semibold text-emerald-600">✓ Area Terjangkau (Radius 0–30 KM dari Cimone Jaya)</p>
+							<p class="font-semibold text-emerald-600">✓ Area Terjangkau (Radius 0–${STORE_CONFIG.maxRadiusKm} KM dari Cimone Jaya)</p>
 							<p class="theme-text-secondary">${evalResult.reason}</p>
 							<p class="text-[11px] accent-text font-semibold mt-1">⏱️ Estimasi Waktu Sampai (ETA): ±${estimatedMinMinutes} – ${estimatedMaxMinutes} menit${weatherNote}</p>
 						`;
