@@ -30,12 +30,16 @@ const KONTROL_TOKO = {
 		buka: '09:00',
 		tutup: '17:00',
 		hariLibur: ['sabtu'],
-		tanggalLibur: []
+		tanggalLibur: ['2026-11-21']
 	},
 	
 	/*
 	hariLibur: ['jumat']              // libur setiap Jumat
 	hariLibur: ['kamis', 'sabtu']     // libur setiap Kamis dan Sabtu
+	tanggalLibur: ['2026-12-25']                          // satu hari
+	tanggalLibur: ['2026-12-25', '2027-01-01']            // beberapa tanggal terpisah
+	tanggalLibur: ['2026-12-24..2026-12-26']              // rentang 24 sampai 26 Desember
+	tanggalLibur: ['2026-12-25', '2027-02-08..2027-02-10'] // campuran
 	*/
 
 	/* ----------------------------------------------------------------------
@@ -47,7 +51,7 @@ const KONTROL_TOKO = {
 		buka: '10:00',
 		tutup: '15:00',
 		hariLibur: ['sabtu'],
-		tanggalLibur: []
+		tanggalLibur: ['2026-11-21']
 	},
 
 	/* ----------------------------------------------------------------------
