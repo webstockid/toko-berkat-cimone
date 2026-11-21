@@ -76,13 +76,16 @@ const KONTROL_TOKO = {
 	       biayaDasar         = tarif dasar (Rp)
 	       kelipatanKm        = setiap tambahan jarak sebesar ini (KM) ...
 	       biayaPerKelipatan  = ... ditambah biaya ini (Rp)
+	     Wilayah: kota (Tangerang Kota), kabupaten (Tangerang Kabupaten),
+	              tangsel (Tangerang Selatan)
 	   ---------------------------------------------------------------------- */
 	biaya: {
 		biayaLayanan: 15000,
-		radiusMaksKm: 30,
+		radiusMaksKm: 32,
 		ongkir: {
 			kota: { kmDasar: 2, biayaDasar: 10000, kelipatanKm: 2, biayaPerKelipatan: 5000 },
-			kabupaten: { kmDasar: 8, biayaDasar: 20000, kelipatanKm: 2, biayaPerKelipatan: 6000 }
+			kabupaten: { kmDasar: 8, biayaDasar: 20000, kelipatanKm: 2, biayaPerKelipatan: 6000 },
+			tangsel: { kmDasar: 12, biayaDasar: 25000, kelipatanKm: 2, biayaPerKelipatan: 6000 }
 		}
 	}
 };
@@ -120,7 +123,8 @@ const KontrolToko = (() => {
 			radiusMaksKm: 30,
 			ongkir: {
 				kota: { kmDasar: 2, biayaDasar: 10000, kelipatanKm: 2, biayaPerKelipatan: 5000 },
-				kabupaten: { kmDasar: 8, biayaDasar: 20000, kelipatanKm: 2, biayaPerKelipatan: 6000 }
+				kabupaten: { kmDasar: 8, biayaDasar: 20000, kelipatanKm: 2, biayaPerKelipatan: 6000 },
+				tangsel: { kmDasar: 12, biayaDasar: 25000, kelipatanKm: 2, biayaPerKelipatan: 6000 }
 			}
 		}
 	};
@@ -236,7 +240,11 @@ const KontrolToko = (() => {
 		radiusMaksKm: angkaPositif(input.radiusMaksKm, BAWAAN.biaya.radiusMaksKm, 'biaya.radiusMaksKm'),
 		ongkir: {
 			kota: normalisasiTarif(input.ongkir?.kota, BAWAAN.biaya.ongkir.kota, 'ongkir.kota'),
-			kabupaten: normalisasiTarif(input.ongkir?.kabupaten, BAWAAN.biaya.ongkir.kabupaten, 'ongkir.kabupaten')
+			kabupaten: normalisasiTarif(input.ongkir?.kabupaten, BAWAAN.biaya.ongkir.kabupaten, 'ongkir.kabupaten'),
+			/* tangsel boleh kosong (file kontrol.js lama): memakai tarif bawaan tanpa peringatan */
+			tangsel: input.ongkir?.tangsel
+				? normalisasiTarif(input.ongkir.tangsel, BAWAAN.biaya.ongkir.tangsel, 'ongkir.tangsel')
+				: { ...BAWAAN.biaya.ongkir.tangsel }
 		}
 	});
 

@@ -93,6 +93,17 @@ if (m) {
 		return synced + ' | setelah dropdown manual, lokasi akurat: ' + (CheckoutController.customLocation ? 'MASIH ADA' : 'kosong');
 	});
 	step('geo luar wilayah', () => { CheckoutController.openAndPopulate(); GeoLocator.apply(-6.9, 107.6, 'GPS'); return 'region tetap: ' + CheckoutController.selectedRegion + ', eligible=' + CheckoutController.getShippingEvaluation().eligible; });
+	step('tangsel', () => {
+		const { ShippingCalculator } = m;
+		const rows = m.TANGERANG_LOCATIONS['Tangerang Selatan'].map(d => { const r = ShippingCalculator.evaluateShipping('Tangerang Selatan', d.name); return d.name + ': ' + r.distanceKm + ' KM, ' + (r.eligible ? 'Rp ' + r.cost.toLocaleString('id-ID') : 'DITOLAK'); });
+		CheckoutController.openAndPopulate();
+		const opts = CheckoutController.regionDropdown.options.map(o => o.value).join(', ');
+		const tn = m.TANGERANG_LOCATIONS['Tangerang Selatan'][2];
+		GeoLocator.apply(tn.lat + 0.001, tn.lng + 0.001, 'GPS');
+		const sync = CheckoutController.selectedRegion + ' / ' + CheckoutController.selectedDistrict + ' / ongkir Rp ' + CheckoutController.getShippingEvaluation().cost.toLocaleString('id-ID');
+		GeoLocator.reset();
+		return '\n   ' + rows.join('\n   ') + '\n   dropdown wilayah: ' + opts + '\n   GPS di Pondok Aren -> ' + sync;
+	});
 	step('summary', () => CheckoutController.renderSummary());
 	step('submit', () => { GeoLocator.reset(); CheckoutController.openAndPopulate(); getEl('checkout-name').value = 'Tes'; getEl('checkout-phone').value = '0812'; getEl('checkout-address').value = 'Jl. Tes'; getEl('checkout-sender-name').value = 'Tes'; CheckoutController.selectedDestination = 'GoPay'; CheckoutController.handleOrderSubmit(); const o = AppState.data.orderHistory[0]; return 'pending=' + (o.startAt > o.createdAt) + ' orders: ' + AppState.data.orderHistory.length + ' cart: ' + AppState.data.cart.length + ' sold: ' + JSON.stringify(AppState.data.stockSold); });
 	step('search', () => { SmartSearch.renderSuggestions('yamh'); AppState.filters.search = 'yamha'; return 'hasil: ' + AppState.getFilteredProducts().length; });

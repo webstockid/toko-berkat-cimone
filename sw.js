@@ -2,7 +2,7 @@
    - Katalog & halaman: network-first (selalu coba data terbaru, cadangan dari cache saat offline)
    - Gambar, CSS, font, CDN: stale-while-revalidate (cepat, diperbarui di latar belakang)
    Naikkan CACHE_VERSION setiap kali ada perubahan besar agar cache lama dibersihkan. */
-const CACHE_VERSION = 'berkat-elektronik-v2';
+const CACHE_VERSION = 'berkat-elektronik-v3';
 const APP_SHELL = ['./', 'index.html', 'kontrol.js', 'manifest.json'];
 
 self.addEventListener('install', (event) => {

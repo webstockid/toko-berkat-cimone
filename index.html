@@ -766,7 +766,7 @@
 						</li>
 						<li class="flex items-start gap-2.5">
 							<span class="w-5 h-5 rounded-full accent-bg text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
-							<span><strong class="theme-text-primary">Hitung Ongkir Otomatis:</strong> Berlaku khusus Tangerang Kota &amp; Kab. Tangerang radius <strong id="info-radius-km">0–30 KM</strong> dari Cimone Jaya + layanan <span id="info-service-fee">Rp 15.000</span>.</span>
+							<span><strong class="theme-text-primary">Hitung Ongkir Otomatis:</strong> Berlaku khusus Tangerang Kota, Kab. Tangerang &amp; Tangerang Selatan radius <strong id="info-radius-km">0–30 KM</strong> dari Cimone Jaya + layanan <span id="info-service-fee">Rp 15.000</span>.</span>
 						</li>
 						<li class="flex items-start gap-2.5">
 							<span class="w-5 h-5 rounded-full accent-bg text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
@@ -1059,7 +1059,7 @@
 					<!-- Wilayah & Kecamatan Tangerang (Kalkulator Jarak 0-30 KM dari Cimone Jaya) -->
 					<div class="p-4 rounded-2xl border theme-elevated space-y-3">
 						<div class="flex flex-wrap items-center justify-between gap-2">
-							<span class="text-xs font-bold theme-text-primary">Area Tujuan Pengiriman (Khusus Tangerang)</span>
+							<span class="text-xs font-bold theme-text-primary">Area Tujuan Pengiriman (Khusus Tangerang Raya)</span>
 							<span id="shipping-distance-pill" class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold accent-soft-bg">
 								Jarak: 0 KM
 							</span>
@@ -1396,6 +1396,12 @@
 					baseCost: 20000,
 					nextStepKm: 2,
 					nextStepCost: 6000
+				},
+				'Tangerang Selatan': {
+					baseKm: 5,
+					baseCost: 15000,
+					nextStepKm: 2,
+					nextStepCost: 6000
 				}
 			},
 			serviceFee: 15000,
@@ -1420,7 +1426,7 @@
 
 		if (KONTROL) {
 			const kontrol = KONTROL.ambil();
-			const { kota, kabupaten } = kontrol.biaya.ongkir;
+			const { kota, kabupaten, tangsel } = kontrol.biaya.ongkir;
 			const toRule = (tarif) => ({
 				baseKm: tarif.kmDasar,
 				baseCost: tarif.biayaDasar,
@@ -1432,7 +1438,9 @@
 			STORE_CONFIG.maxRadiusKm = kontrol.biaya.radiusMaksKm;
 			STORE_CONFIG.shippingRules = {
 				'Tangerang Kota': toRule(kota),
-				'Tangerang Kabupaten': toRule(kabupaten)
+				'Tangerang Kabupaten': toRule(kabupaten),
+				/* kontrol.js versi lama belum punya tarif Tangsel: pakai tarif bawaan STORE_CONFIG */
+				'Tangerang Selatan': tangsel ? toRule(tangsel) : STORE_CONFIG.shippingRules['Tangerang Selatan']
 			};
 			STORE_CONFIG.officialDestinations = kontrol.rekening.map(item => ({
 				id: item.id,
@@ -1444,7 +1452,7 @@
 			console.error('[Berkat Elektronik] kontrol.js tidak termuat. Memakai pengaturan bawaan di STORE_CONFIG.');
 		}
 
-		/* Data Kecamatan Tangerang Kota & Tangerang Kabupaten beserta koordinat untuk kalkulasi jarak dari Cimone Jaya */
+		/* Data Kecamatan Tangerang Kota, Tangerang Kabupaten & Tangerang Selatan beserta koordinat (perkiraan titik tengah) untuk kalkulasi jarak dari Cimone Jaya */
 		const TANGERANG_LOCATIONS = {
 			'Tangerang Kota': [
 				{ name: 'Karawaci (Cimone Jaya)', lat: -6.1856, lng: 106.6127 },
@@ -1487,6 +1495,15 @@
 				{ name: 'Jayanti (Luar Radius >30 KM)', lat: -6.1982, lng: 106.3985 },
 				{ name: 'Kresek (Luar Radius >30 KM)', lat: -6.1342, lng: 106.3845 },
 				{ name: 'Kronjo (Luar Radius >30 KM)', lat: -6.0745, lng: 106.4185 }
+			],
+			'Tangerang Selatan': [
+				{ name: 'Serpong', lat: -6.3150, lng: 106.6600 },
+				{ name: 'Serpong Utara', lat: -6.2680, lng: 106.6600 },
+				{ name: 'Pondok Aren', lat: -6.2655, lng: 106.7040 },
+				{ name: 'Ciputat', lat: -6.3115, lng: 106.7490 },
+				{ name: 'Ciputat Timur (Luar Radius >30 KM)', lat: -6.3330, lng: 106.7680 },
+				{ name: 'Pamulang', lat: -6.3420, lng: 106.7300 },
+				{ name: 'Setu', lat: -6.3500, lng: 106.6900 }
 			]
 		};
 
@@ -3001,7 +3018,7 @@
 				const base = { distanceKm, cost: 0, brackets: 0, region: near.region, district: near.name, nearKm: near.km };
 
 				if (near.km > 15) {
-					return { ...base, eligible: false, reason: 'Titik lokasi berada di luar wilayah layanan Tangerang Kota dan Tangerang Kabupaten.' };
+					return { ...base, eligible: false, reason: 'Titik lokasi berada di luar wilayah layanan Tangerang Kota, Tangerang Kabupaten, dan Tangerang Selatan.' };
 				}
 				if (distanceKm > STORE_CONFIG.maxRadiusKm) {
 					return { ...base, eligible: false, reason: `Lokasi akurat Anda sekitar ${distanceKm} KM dari toko. Melebihi batas radius pengiriman 0–${STORE_CONFIG.maxRadiusKm} KM.` };
@@ -3038,13 +3055,13 @@
 			},
 
 			evaluateShipping(region, districtName) {
-				if (region !== 'Tangerang Kota' && region !== 'Tangerang Kabupaten') {
+				if (!STORE_CONFIG.shippingRules[region]) {
 					return {
 						eligible: false,
 						distanceKm: null,
 						cost: 0,
 						brackets: 0,
-						reason: 'Maaf, Berkat Elektronik hanya melayani pengiriman untuk wilayah Tangerang Kota dan Tangerang Kabupaten.'
+						reason: 'Maaf, Berkat Elektronik hanya melayani pengiriman untuk wilayah Tangerang Kota, Tangerang Kabupaten, dan Tangerang Selatan.'
 					};
 				}
 
@@ -4249,10 +4266,7 @@
 				new CustomDropdown({
 					containerId: 'dropdown-profile-region',
 					value: selectedRegion,
-					options: [
-						{ value: 'Tangerang Kota', label: 'Tangerang Kota' },
-						{ value: 'Tangerang Kabupaten', label: 'Tangerang Kabupaten' }
-					],
+					options: Object.keys(TANGERANG_LOCATIONS).map(region => ({ value: region, label: region })),
 					onChange: (val) => {
 						selectedRegion = val;
 						const list = TANGERANG_LOCATIONS[val] || [];
@@ -4793,10 +4807,7 @@
 				this.regionDropdown = new CustomDropdown({
 					containerId: 'dropdown-checkout-region',
 					value: this.selectedRegion,
-					options: [
-						{ value: 'Tangerang Kota', label: 'Tangerang Kota' },
-						{ value: 'Tangerang Kabupaten', label: 'Tangerang Kabupaten' }
-					],
+					options: Object.keys(TANGERANG_LOCATIONS).map(region => ({ value: region, label: region })),
 					onChange: (val) => {
 						GeoLocator.clearForManualSelection();
 						this.selectedRegion = val;
